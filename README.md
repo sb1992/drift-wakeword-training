@@ -22,12 +22,17 @@ package) is **not** in this repo - it's all regenerable. See "Setup" below.
 |---|---|---|---|---|
 | "Hey Drift" | activate session | `hey_drift.onnx` | 85.7% | 0.05 |
 | "Drift Stop" | exit session | `drift_stop.onnx` | 87.4% | 0.00 |
+| "Drift Done" | exit session (alt) | `drift_done.onnx` | 83.8% | 0.00 |
 | "Drift Code" | switch to code mode | `drift_code.onnx` | 85.1% | 0.00 |
+| "Drift Action" | switch to automation mode | `drift_action.onnx` | 84.6% | 0.00 |
 
-All three were trained on 10K synthetic positives + adversarial negatives,
+"Drift Stop" and "Drift Done" both map to the same exit handler in the
+app — users can naturally say either phrase to end a session.
+
+All five were trained on 10K synthetic positives + adversarial negatives,
 conv_attention small architecture, 50K steps + 5K Phase 2 + 5K Phase 3
-checkpoint averaging. Total training time ~50 min per keyword on Apple
-Silicon (M-series) with MPS.
+checkpoint averaging. Total training time ~50-110 min per keyword on
+Apple Silicon (M-series) with MPS.
 
 ## Setup (to retrain or train new wake words)
 
