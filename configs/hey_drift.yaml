@@ -1,0 +1,93 @@
+# Model name — used for output directory and exported model filename
+model_name: hey_drift
+
+# Wake word phrases to detect
+target_phrases: ["hey drift"]
+
+# ============================================================================
+# Data Generation
+# ============================================================================
+
+n_samples: 10000
+n_samples_val: 2000
+n_background_samples: 200
+n_background_samples_val: 40
+tts_batch_size: 50
+
+# Adversarial negatives — phonetically similar phrases that should NOT trigger
+custom_negative_phrases:
+  # Bare wake word without prefix
+  - "drift"
+  # Phonetically similar prefixes
+  - "hey drip"
+  - "hey trip"
+  - "hey rift"
+  - "hey swift"
+  - "hey gift"
+  - "hey grift"
+  - "hey dip"
+  - "hey dripped"
+  - "hey drifts"
+  # Similar sounding phrases
+  - "adrift"
+  - "they drift"
+  - "a drift"
+  - "hey lift"
+  - "hey shift"
+  - "hey sift"
+  # Partial/adjacent phrases
+  - "drift away"
+  - "hey there"
+  - "hey chris"
+
+# ============================================================================
+# TTS Parameters
+# ============================================================================
+
+noise_scales: [0.98]
+noise_scale_ws: [0.98]
+length_scales: [0.75, 1.0, 1.25]
+slerp_weights: [0.2, 0.35, 0.5, 0.65, 0.8]
+
+# ============================================================================
+# Paths
+# ============================================================================
+
+data_dir: ./data
+output_dir: ./output
+
+# ============================================================================
+# Augmentation
+# ============================================================================
+
+augmentation:
+  clip_duration: 2.0
+  batch_size: 16
+  rounds: 2
+  background_paths: [./data/backgrounds]
+  rir_paths: [./data/rirs]
+
+# ============================================================================
+# Model Architecture
+# ============================================================================
+
+model:
+  model_type: conv_attention
+  model_size: small
+
+# ============================================================================
+# Training
+# ============================================================================
+
+steps: 50000
+learning_rate: 0.0001
+weight_decay: 0.01
+label_smoothing: 0.05
+max_negative_weight: 1500
+target_fp_per_hour: 0.2
+
+batch_n_per_class:
+  positive: 50
+  adversarial_negative: 50
+  ACAV100M_sample: 1024
+  background_noise: 50
