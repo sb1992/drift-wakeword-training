@@ -24,12 +24,15 @@ package) is **not** in this repo - it's all regenerable. See "Setup" below.
 | "Drift Stop" | exit session | `drift_stop.onnx` | 87.4% | 0.00 |
 | "Drift Done" | exit session (alt) | `drift_done.onnx` | 83.8% | 0.00 |
 | "Drift Code" | switch to code mode | `drift_code.onnx` | 85.1% | 0.00 |
+| "Drift Dev" | switch to code mode (alt) | `drift_dev.onnx` | 82.2% | 0.00 |
+| "Drift Hack" | switch to code mode (alt) | `drift_hack.onnx` | 88.8% | 0.11 |
 | "Drift Action" | switch to automation mode | `drift_action.onnx` | 84.6% | 0.00 |
 
 "Drift Stop" and "Drift Done" both map to the same exit handler in the
-app — users can naturally say either phrase to end a session.
+app — users can naturally say either phrase to end a session. "Drift Code",
+"Drift Dev", and "Drift Hack" all trigger Voice Coding mode.
 
-All five were trained on 10K synthetic positives + adversarial negatives,
+All seven were trained on 10K synthetic positives + adversarial negatives,
 conv_attention small architecture, 50K steps + 5K Phase 2 + 5K Phase 3
 checkpoint averaging. Total training time ~50-110 min per keyword on
 Apple Silicon (M-series) with MPS.
